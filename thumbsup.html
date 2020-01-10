@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback</title>
+    <style type="text/css">
+        .container {
+            padding: 75px;
+            width: 100%;
+        }
+        .thumbs-area {
+            margin: 25px 0px 0px 0px;
+        }
+        ​ .thumbs-area a {
+            color: #111;
+            text-align: center;
+            border: 2px solid #111;
+            ;
+            border-radius: 5px;
+            background: #effbff;
+            margin: 5px;
+            padding: 50px 0px;
+            display: inline-block;
+            height: 250px;
+            width: 250px;
+        }
+        ​ #thumbs-up:hover,
+        #thumbs-down:hover {
+            text-decoration: none;
+        }
+​
+        ​ #thumbs-up:hover {
+            background: #98ed74;
+        }
+​
+        ​ #thumbs-down:hover {
+            background: #ed7474;
+        }
+        ​ ​ .thumbs-up,
+        .thumbs-down {
+            display: inline-block;
+        }
+        ​ .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 999;
+        }
+        ​ .overlay:target {
+            visibility: visible;
+            opacity: 1;
+        }
+        ​ .popup {
+            margin: 200px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            width: 30%;
+            position: relative;
+            transition: all 5s ease-in-out;
+        }
+        ​ .popup h3 {
+            margin: 0px 15px 15px 0px;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+        ​ .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+        ​ .popup .close:hover {
+            color: #06D85F;
+        }
+        ​ .popup .content {
+            max-height: 100%;
+            overflow: auto;
+        }
+        img{
+            cursor: pointer;
+        }
+        .display-none{
+            display: none
+        }
+        .blur-image{
+            opacity: 0.1
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    </div>
+    <h2 class="text-center">Dominos Feedback</h2><br>
+    <p class="text-center"> Please take a moment to review your experience with us. Your feedback not only helps us, it
+        helps other potential customers. </p>
+    <div class="thumbs-area text-center">
+        <div style="display: inline-block; position: relative" class='thumbs-up'>
+            <!-- <button></button> -->
+            <img id="event1" src="https://cdn.yellowmessenger.com/wWWYGfXb7cnX1575370527823.PNG" width="240"
+                height="240">
+            <!--  <p id="hide-text" style="position: absolute; top: 102px; left: 100px" class="display-none"><strong>Great!!!!</strong></p> -->
+             <img src="https://cdn.yellowmessenger.com/vkmQ3Fo7GoSx1575448822599.jpg" id="hide-text" width="160"
+                height="180" style="position: absolute; top: 11px; left: 15px" class="display-none"></img>
+        </div>
+        <div class='thumbs-down'  style="display: inline-block;position: relative" href="#popup1">
+            <img id="event2" src="https://cdn.yellowmessenger.com/lGnEByqh19pN1575370552549.PNG" width="240"
+                height="240">
+                <!-- <p id="hide-text1" style="position: absolute; top: 400px; left: 350px" class="display-none"><strong>Great!!!!</strong></p> -->
+                <img src="https://cdn.yellowmessenger.com/PKNSucXQMNZr1575450269552.jpg" id="hide-text1" width="160"
+                height="180" style="position: absolute; top: 20px; left: 20px" class="display-none"></img>
+        </div>
+        <br></br>
+    </div>
+    </div>
+    <script>
+        let thumbsUp = document.getElementById('event1');
+        let hideElement = document.getElementById('hide-text');
+        let tdown = document.getElementById('event2');
+        thumbsUp.addEventListener('click', () => {
+            // alert("INSIDE THUMBS UP")
+            tdown.classList.add('blur-image')
+            thumbsUp.classList.add('blur-image')
+            hideElement.classList.remove('display-none')
+             return window.parent.postMessage(JSON.stringify({
+                event_code: 'ym-client-event', data: JSON.stringify({
+                    event: {
+                        code: "thumbsUp",
+                        data: {
+                            feedback: "thumbsUp"
+                        }
+                    }
+                })
+            }), '*');
+        })
+        let thumbsDown = document.getElementById('event2');
+        let tUp = document.getElementById('event1');
+        let hideElement1 = document.getElementById('hide-text1')
+        thumbsDown.addEventListener('click', () => {
+thumbsDown.classList.add('blur-image')
+tUp.classList.add('blur-image')
+            hideElement1.classList.remove('display-none')
+           return window.parent.postMessage(JSON.stringify({
+                event_code: 'ym-client-event', data: JSON.stringify({
+                    event: {
+                        code: "thumbsDown",
+                        data: {
+                            feedback: "thumbsDown"
+                        }
+                    }
+                })
+            }), '*');
+        })
+    </script>
+</body>
+</html>
